@@ -1,6 +1,4 @@
 .vscode
 .DS_Store
-src
 node_modules
-jest.config.js
-rollup.config.js
+src
