@@ -15,7 +15,6 @@
     "url": "https://github.com/TroyTae/next-atomic-css/issues"
   },
   "dependencies": {
-    "css-loader": "5.2.4",
-    "style-loader": "2.0.0"
+    "css-loader": "5.2.4"
   }
 }
