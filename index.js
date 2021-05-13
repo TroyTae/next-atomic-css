@@ -1,4 +1,4 @@
-function createCssLoaders({ isGlobal, isServer }) {
+function cssUses({ isGlobal, isServer }) {
   const loaders = [];
 
   if (!isServer) {
@@ -32,11 +32,11 @@ module.exports = (nextConfig = {}) => ({
       config.module.rules.push({
         sideEffects: true,
         test: /(?<!\.module)\.css$/,
-        use: createCssLoaders({ isGlobal: true, isServer }),
+        use: cssUses({ isGlobal: true, isServer }),
       });
       config.module.rules.push({
         test: /\.module\.css$/,
-        use: createCssLoaders({ isGlobal: false, isServer }),
+        use: cssUses({ isGlobal: false, isServer }),
       });
     }
 
