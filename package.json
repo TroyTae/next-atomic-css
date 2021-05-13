@@ -1,0 +1,30 @@
+{
+  "name": "next-atomic-css",
+  "version": "0.0.1",
+  "description": "Next.js plugin for optimizing css",
+  "main": "dist/index.js",
+  "module": "dist/index.esm.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "rollup --c rollup.config.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TroyTae/next-atomic-css.git"
+  },
+  "keywords": [],
+  "author": "TroyTae",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/TroyTae/next-atomic-css/issues"
+  },
+  "dependencies": {
+    "css-loader": "5.2.4",
+    "style-loader": "2.0.0"
+  },
+  "devDependencies": {
+    "fs-extra": "9.1.0",
+    "naming-convention-transfer": "1.0.2",
+    "rollup": "2.45.2"
+  }
+}
