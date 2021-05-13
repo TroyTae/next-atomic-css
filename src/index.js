@@ -1,8 +1,30 @@
+function createCssLoaders({ isGlobal, isServer }) {
+  const loaders = [];
+
+  if (!isServer) {
+    loaders.push("next-style-loader");
+  }
+
+  if (isGlobal) {
+    loaders.push("css-loader");
+  } else {
+    loaders.push({
+      loader: "css-loader",
+      options: {
+        modules: {
+          exportOnlyLocals: isServer,
+        },
+      },
+    });
+  }
+
+  return loaders;
+}
+
 module.exports = (nextConfig = {}) => ({
   ...nextConfig,
   webpack(config, options) {
     const { dev, isServer } = options;
-    const isClient = !isServer;
 
     config.module.rules.splice(1, 1);
 
@@ -10,23 +32,11 @@ module.exports = (nextConfig = {}) => ({
       config.module.rules.push({
         sideEffects: true,
         test: /(?<!\.module)\.css$/,
-        use: [isClient && "next-style-loader", "css-loader"].filter(Boolean),
+        use: createCssLoaders({ isGlobal: true, isServer }),
       });
-
       config.module.rules.push({
-        sideEffects: true,
         test: /\.module\.css$/,
-        use: [
-          isClient && "next-style-loader",
-          {
-            loader: "css-loader",
-            options: {
-              modules: {
-                exportOnlyLocals: isServer,
-              },
-            },
-          },
-        ].filter(Boolean),
+        use: createCssLoaders({ isGlobal: false, isServer }),
       });
     }
 
