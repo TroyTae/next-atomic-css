@@ -2,7 +2,7 @@
   "name": "next-atomic-css",
   "version": "0.1.2",
   "description": "Next.js plugin for optimizing css",
-  "main": "src/index.js",
+  "main": "index.js",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/TroyTae/next-atomic-css.git"
@@ -14,6 +14,7 @@
     "url": "https://github.com/TroyTae/next-atomic-css/issues"
   },
   "dependencies": {
-    "css-loader": "5.2.4"
+    "css-loader": "5.2.4",
+    "mini-css-extract-plugin": "1.6.0"
   }
 }
