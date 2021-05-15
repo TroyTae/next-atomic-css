@@ -50,7 +50,7 @@ module.exports = (nextConfig = {}) => {
       config.module.rules.push({
         sideEffects: true,
         test: /(?<!\.module)\.css$/,
-        use: cssUses({ assetPrefix, dev, isServer }),
+        use: cssUses({ assetPrefix, dev }),
       });
 
       config.module.rules.push({
