@@ -1,6 +1,6 @@
 {
   "name": "next-atomic-css",
-  "version": "0.1.3",
+  "version": "0.2.1",
   "description": "Next.js plugin for optimizing css",
   "main": "index.js",
   "repository": {
