@@ -1,6 +1,6 @@
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
-function cssUses({ dev, isServer, cssOptions, assetPrefix }) {
+function cssUses({ assetPrefix, dev, isServer, cssOptions }) {
   const loaders = [];
 
   if (!isServer) {
@@ -24,12 +24,24 @@ function cssUses({ dev, isServer, cssOptions, assetPrefix }) {
   return loaders;
 }
 
+function sassUses({ assetPrefix, dev, isServer, cssOptions, sassOptions }) {
+  const loaders = cssUses({ assetPrefix, dev, isServer, cssOptions });
+
+  loaders.push({
+    loader: "sass-loader",
+    options: sassOptions,
+  });
+
+  return loaders;
+}
+
 module.exports = (nextConfig = {}) => {
-  const { cssOptions, sassOptions, ...restConfig } = nextConfig;
+  const cssOptions = nextConfig.cssOptions || {};
+  const sassOptions = nextConfig.sassOptions || {};
   const assetPrefix = nextConfig.assetPrefix || nextConfig.basePath || "";
 
   return {
-    ...restConfig,
+    ...nextConfig,
     webpack(config, options) {
       const { dev, isServer } = options;
       const cssFileName = "static/css/[contenthash].css";
@@ -50,7 +62,13 @@ module.exports = (nextConfig = {}) => {
       config.module.rules.push({
         sideEffects: true,
         test: /(?<!\.module)\.css$/,
-        use: cssUses({ assetPrefix, dev }),
+        use: cssUses({ assetPrefix, dev, isServer }),
+      });
+
+      config.module.rules.push({
+        sideEffects: true,
+        test: /(?<!\.module)\.s[ac]ss$/,
+        use: sassUses({ assetPrefix, dev, isServer }),
       });
 
       config.module.rules.push({
