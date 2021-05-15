@@ -15,6 +15,7 @@
   },
   "dependencies": {
     "css-loader": "5.2.4",
-    "mini-css-extract-plugin": "1.6.0"
+    "mini-css-extract-plugin": "1.6.0",
+    "webpack": "4.46.0"
   }
 }

@@ -11,7 +11,6 @@ function cssUses({ dev, isServer, cssOptions, assetPrefix }) {
             loader: MiniCssExtractPlugin.loader,
             options: {
               publicPath: `${assetPrefix}/_next/`,
-              esModule: false,
             },
           }
     );
@@ -33,13 +32,15 @@ module.exports = (nextConfig = {}) => {
     ...restConfig,
     webpack(config, options) {
       const { dev, isServer } = options;
+      const cssFileName = "static/css/[contenthash].css";
 
       if (!dev && !isServer) {
-        config.plugins.push(
+        config.plugins.splice(
+          9,
+          1,
           new MiniCssExtractPlugin({
-            filename: "static/css/[contenthash].css",
-            chunkFilename: "static/css/[contenthash].css",
-            // ignoreOrder: true,
+            filename: cssFileName,
+            chunkFilename: cssFileName,
           })
         );
       }
@@ -63,6 +64,7 @@ module.exports = (nextConfig = {}) => {
             modules: {
               ...cssOptions.modules,
               exportOnlyLocals: isServer,
+              localIdentName: "[path][name]__[local]--[hash:base64:5]",
             },
           },
         }),
