@@ -44,9 +44,9 @@ module.exports = (nextConfig = {}) => {
     ...nextConfig,
     webpack(config, options) {
       const { dev, isServer } = options;
-      const cssFileName = "static/css/[contenthash].css";
 
       if (!dev && !isServer) {
+        const cssFileName = "static/css/[contenthash].css";
         config.plugins.splice(
           9,
           1,
@@ -64,27 +64,37 @@ module.exports = (nextConfig = {}) => {
         test: /(?<!\.module)\.css$/,
         use: cssUses({ assetPrefix, dev, isServer }),
       });
-
       config.module.rules.push({
         sideEffects: true,
         test: /(?<!\.module)\.s[ac]ss$/,
         use: sassUses({ assetPrefix, dev, isServer }),
       });
 
+      const cssLoaderOptions = {
+        ...cssOptions,
+        modules: {
+          ...cssOptions.modules,
+          exportOnlyLocals: isServer,
+          localIdentName: "[path][name]__[local]--[hash:base64:5]",
+        },
+      };
       config.module.rules.push({
         test: /\.module\.css$/,
         use: cssUses({
           assetPrefix,
           dev,
           isServer,
-          cssOptions: {
-            ...cssOptions,
-            modules: {
-              ...cssOptions.modules,
-              exportOnlyLocals: isServer,
-              localIdentName: "[path][name]__[local]--[hash:base64:5]",
-            },
-          },
+          cssOptions: cssLoaderOptions,
+        }),
+      });
+      config.module.rules.push({
+        test: /\.module\.s[ac]ss$/,
+        use: sassUses({
+          assetPrefix,
+          dev,
+          isServer,
+          cssOptions: cssLoaderOptions,
+          sassOptions,
         }),
       });
 

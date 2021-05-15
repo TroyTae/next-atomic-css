@@ -1,10 +1,11 @@
-import styles from "styles/Home.module.css";
+import css from "styles/Index.module.css";
+import sass from "styles/Index.module.scss";
 
 export default function Index() {
   return (
-    <div className={styles.container}>
-      <main className={styles.main}>
-        <h1 className={styles.title}>
+    <div className={css.container}>
+      <main className={css.main}>
+        <h1 className={sass.title}>
           Welcome to <a href="https://nextjs.org">Next.js!</a>
         </h1>
       </main>
