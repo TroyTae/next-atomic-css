@@ -53,23 +53,18 @@ export const ALPHABET = [
   "z",
 ];
 
-export const NUMBERS = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
+const NUMBERS = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
 
 // Maximum selector limit in IE10
 const LIMIT_COUNT = 2 ** 16;
 
-export type UglifyFunction = (name: string) => string;
-
-export function Uglify(
-  availableCharacters: string[],
-  isAvailableString?: (str: string) => boolean
-): UglifyFunction {
+function Uglify(availableCharacters, isAvailableString) {
   const maxIndex = availableCharacters.length;
   let count = 0;
   let keys = [0];
-  let set: { [key: string]: string } = {};
+  let set = {};
 
-  return function (name: string): string {
+  return function (name) {
     for (; !set[name]; ++count) {
       const str = keys.map((key) => availableCharacters[key]).join("");
       if (!isAvailableString || isAvailableString(str)) {
@@ -105,7 +100,7 @@ const CSS_CHARACTERS = [
   "_",
 ];
 
-function validateCss(str: string): boolean {
+function validateCss(str) {
   return (
     str.slice(0, 2) !== "--" &&
     !NUMBERS.includes(str[0]) &&
@@ -113,6 +108,6 @@ function validateCss(str: string): boolean {
   );
 }
 
-export function CssUglify(): UglifyFunction {
+export function CssUglify() {
   return Uglify(CSS_CHARACTERS, validateCss);
 }
