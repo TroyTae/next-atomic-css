@@ -58,7 +58,6 @@ module.exports = (nextConfig = {}) => {
       }
 
       config.module.rules.splice(1, 1);
-
       config.module.rules.push({
         sideEffects: true,
         test: /(?<!\.module)\.css$/,
