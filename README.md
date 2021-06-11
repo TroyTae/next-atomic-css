@@ -1,6 +1,9 @@
 # Next Atomic CSS
 
-Next.js plugin for optimizing css.
+Next.js plugin for optimizing css.  
+This plugin will mangle your css in production mode.
+
+![mangle image](./images/mangle.png)
 
 ## How to use
 
@@ -29,3 +32,10 @@ module.exports = withAtomicCss({
   },
 });
 ```
+
+## Next Plan
+
+Now I'm considering how to split css atomically.  
+If you have a good idea, please contact to me :)
+
+![atomic image](./images/atomic.png)
