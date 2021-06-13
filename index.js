@@ -126,16 +126,16 @@ module.exports = (nextConfig = {}) => {
         oneOf: [
           {
             sideEffects: true,
-            test: /(?<!\.module)\.css$/,
+            test: /(?<!\.module)\.css$/i,
             use: cssUses({ assetPrefix, dev, isServer }),
           },
           {
             sideEffects: true,
-            test: /(?<!\.module)\.s[ac]ss$/,
+            test: /(?<!\.module)\.s[ac]ss$/i,
             use: sassUses({ assetPrefix, dev, isServer }),
           },
           {
-            test: /\.module\.css$/,
+            test: /\.module\.css$/i,
             use: cssUses({
               assetPrefix,
               dev,
@@ -144,7 +144,7 @@ module.exports = (nextConfig = {}) => {
             }),
           },
           {
-            test: /\.module\.s[ac]ss$/,
+            test: /\.module\.s[ac]ss$/i,
             use: sassUses({
               assetPrefix,
               dev,
@@ -152,6 +152,9 @@ module.exports = (nextConfig = {}) => {
               cssOptions: cssLoaderOptions,
               sassOptions,
             }),
+          },
+          {
+            test: /(jpg|jpeg|png|svg|gif|ico|webp)$/i,
           },
         ],
       });
