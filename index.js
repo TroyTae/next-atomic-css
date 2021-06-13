@@ -155,6 +155,17 @@ module.exports = (nextConfig = {}) => {
           },
           {
             test: /(jpg|jpeg|png|svg|gif|ico|webp)$/i,
+            use: [
+              {
+                loader: "url-loader",
+                options: {
+                  fallback: "file-loader",
+                  outputPath: `${isServer ? "../" : ""}static/images/`,
+                  publicPath: `${assetPrefix}/_next/static/images/`,
+                  name: "[hash:base64:5].[ext]",
+                },
+              },
+            ],
           },
         ],
       });
