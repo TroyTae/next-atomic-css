@@ -9,7 +9,7 @@
     "@types/node": "15.12.2",
     "@types/react": "17.0.11",
     "next": "10.2.3",
-    "next-atomic-css": "0.3.3",
+    "next-atomic-css": "0.4.1",
     "react": "17.0.2",
     "react-dom": "17.0.2",
     "typescript": "4.3.2"
