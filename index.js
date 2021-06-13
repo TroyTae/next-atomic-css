@@ -102,18 +102,6 @@ module.exports = (nextConfig = {}) => {
         );
       }
 
-      config.module.rules.splice(1, 1);
-      config.module.rules.push({
-        sideEffects: true,
-        test: /(?<!\.module)\.css$/,
-        use: cssUses({ assetPrefix, dev, isServer }),
-      });
-      config.module.rules.push({
-        sideEffects: true,
-        test: /(?<!\.module)\.s[ac]ss$/,
-        use: sassUses({ assetPrefix, dev, isServer }),
-      });
-
       const cssLoaderOptions = {
         ...cssOptions,
         modules: {
@@ -133,24 +121,39 @@ module.exports = (nextConfig = {}) => {
               },
         },
       };
-      config.module.rules.push({
-        test: /\.module\.css$/,
-        use: cssUses({
-          assetPrefix,
-          dev,
-          isServer,
-          cssOptions: cssLoaderOptions,
-        }),
-      });
-      config.module.rules.push({
-        test: /\.module\.s[ac]ss$/,
-        use: sassUses({
-          assetPrefix,
-          dev,
-          isServer,
-          cssOptions: cssLoaderOptions,
-          sassOptions,
-        }),
+
+      config.module.rules.splice(1, 1, {
+        oneOf: [
+          {
+            sideEffects: true,
+            test: /(?<!\.module)\.css$/,
+            use: cssUses({ assetPrefix, dev, isServer }),
+          },
+          {
+            sideEffects: true,
+            test: /(?<!\.module)\.s[ac]ss$/,
+            use: sassUses({ assetPrefix, dev, isServer }),
+          },
+          {
+            test: /\.module\.css$/,
+            use: cssUses({
+              assetPrefix,
+              dev,
+              isServer,
+              cssOptions: cssLoaderOptions,
+            }),
+          },
+          {
+            test: /\.module\.s[ac]ss$/,
+            use: sassUses({
+              assetPrefix,
+              dev,
+              isServer,
+              cssOptions: cssLoaderOptions,
+              sassOptions,
+            }),
+          },
+        ],
       });
 
       return typeof nextConfig.webpack === "function"
